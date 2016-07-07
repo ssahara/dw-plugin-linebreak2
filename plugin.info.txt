@@ -1,0 +1,9 @@
+base     linebreak2
+author   Christopher Smith
+email    chris@jalakai.co.uk
+author   Satoshi Sahara
+email    sahara.satoshi@gmail.com
+date     2016-07-07
+name     LineBreak2 plugin
+desc     A replacement for the standard dokuwiki renderer. Enable <poem> tag that embeds a block with linebreaks preserved. 
+url      
