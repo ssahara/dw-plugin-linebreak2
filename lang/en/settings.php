@@ -7,7 +7,7 @@
  */
 
 $lang['linebreak'] = 'How to treat line break in cdata() call';
-$lang['linebreak_o_default'] ='output as is (default)';
-$lang['linebreak_o_br']      ='replace to <br> tag (xbr plugin)';
-$lang['linebreak_o_remove']  ='remove line break chars';
+$lang['linebreak_o_LF'] ='output as is (default)';
+$lang['linebreak_o_br'] ='replace to <br> tag';
+$lang['linebreak_o_']   ='remove line break chars';
 

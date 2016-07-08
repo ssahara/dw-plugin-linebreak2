@@ -4,4 +4,4 @@
  * @author     Satoshi Sahara <sahara.satoshi@gmail.com>
  */
 
-$conf['linebreak'] = 'default';
+$conf['linebreak'] = 'LF'; // = DOKU_LF

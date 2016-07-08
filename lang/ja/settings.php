@@ -7,7 +7,7 @@
  */
 
 $lang['linebreak'] = 'LineBreak2 レンダラーでの改行文字の取り扱い方';
-$lang['linebreak_o_default'] ='出力する（標準xhtmlレンダラーと同じ）';
-$lang['linebreak_o_br']      ='<br> タグに置換 (xbr plugin)';
-$lang['linebreak_o_remove']  ='取り除く';
+$lang['linebreak_o_LF']  ='出力する（標準xhtmlレンダラーと同じ）';
+$lang['linebreak_o_br']  ='<br> タグに置換';
+$lang['linebreak_o_']    ='取り除く';
 

@@ -7,7 +7,7 @@
  */
 
 if(!defined('DOKU_INC')) die();
-//if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 //require_once DOKU_INC . 'inc/parser/xhtml.php';
 
@@ -32,12 +32,13 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         switch ($this->getConf('linebreak')) {
             case 'br':
                 // xbr plugin: XHTML output with preserved linebreaks
-                $this->doc .= str_replace("\n","<br />\n",$this->_xmlEntities($text));
+                $this->doc .= str_replace(DOKU_LF,'<br />'.DOKU_LF,$this->_xmlEntities($text));
                 return;
-            case 'remove':
+            case '':
                 // scriptio continua: concatenate next line without word delimiting space
-                $this->doc .= str_replace("\n","",$this->_xmlEntities($text));
+                $this->doc .= str_replace(DOKU_LF,'',$this->_xmlEntities($text));
                 return;
+            case 'LF':
             default:
                 // leave line break chars as is (identical with the standard xhml renderer)
                 $this->doc .= $this->_xmlEntities($text);

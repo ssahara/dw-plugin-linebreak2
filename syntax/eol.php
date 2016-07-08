@@ -9,6 +9,7 @@
 
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
+if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 class syntax_plugin_linebreak2_eol extends DokuWiki_Syntax_Plugin {
 
@@ -36,10 +37,10 @@ class syntax_plugin_linebreak2_eol extends DokuWiki_Syntax_Plugin {
     function render($format, Doku_Renderer $renderer, $data) {
         switch ($format) {
             case 'xhtml':
-                $renderer->doc .= "<br/>\n";
+                $renderer->doc .= '<br/>'.DOKU_LF;
                 return true;
             case 'metadata':
-                $renderer->doc .= "\n";
+                $renderer->doc .= DOKU_LF;
                 return true;
         }
         return false;
