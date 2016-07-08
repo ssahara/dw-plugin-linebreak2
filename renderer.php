@@ -29,7 +29,16 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
     }
 
     function cdata($text) {
-        switch ($this->getConf('linebreak')) {
+        global $INFO;
+
+        // check LINEBREAK directive in the page metadata
+        if (isset($INFO['meta']['plugin_linebreak2'])) {
+            $linebreak = $INFO['meta']['plugin_linebreak2'];
+        } else {
+            $linebreak = $this->getConf('linebreak');
+        }
+
+        switch ($linebreak) {
             case 'br':
                 // xbr plugin: XHTML output with preserved linebreaks
                 $this->doc .= str_replace(DOKU_LF,'<br />'.DOKU_LF,$this->_xmlEntities($text));
