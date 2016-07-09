@@ -1,7 +1,7 @@
 base     linebreak2
 author   Satoshi Sahara
 email    sahara.satoshi@gmail.com
-date     2016-07-07
+date     2016-07-09
 name     LineBreak2 plugin
-desc     Another xhtml renderer provides LF (\n) chars output options. Also provides syntax <poem> tag that embeds a block with linebreaks preserved.
+desc     Alternative xhtml renderer that works with LINEBREAK directive syntax influences how linebreaks in the wiki text should be preserved or removed.
 url      
