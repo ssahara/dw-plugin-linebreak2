@@ -17,13 +17,18 @@ if(!defined('DOKU_INC')) die();
 
 class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
 
+    protected $mode;
     protected $match_pattern = '~~LINEBREAK:[^\r\n]*?~~';
+
+    function __construct() {
+        $this->mode = substr(get_class($this), 7); // drop 'syntax_' from class name
+    }
 
     function getType(){ return 'substition'; }
     function getSort(){ return 369; } // very low priority
 
     public function connectTo($mode) {
-        $this->Lexer->addSpecialPattern($this->match_pattern, $mode, 'plugin_linebreak2_directive');
+        $this->Lexer->addSpecialPattern($this->match_pattern, $mode, $this->mode);
     }
 
     /**
