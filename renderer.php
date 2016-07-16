@@ -31,7 +31,8 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
     function cdata($text) {
         global $INFO;
 
-        // Markdown linebreak syntax (more than two spaces at the end of line)
+        // Markdown linebreak syntax 
+        // force newline if found more than two spaces at the end of line
         if ($this->getConf('markdown')) {
             $html = preg_replace('/ {2,}\n/', '<br />', $this->_xmlEntities($text));
         } else {
