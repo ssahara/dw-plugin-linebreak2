@@ -31,6 +31,13 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
     function cdata($text) {
         global $INFO;
 
+        // Markdown linebreak syntax (more than two spaces at the end of line)
+        if ($this->getConf('markdown')) {
+            $html = preg_replace('/ {2,}\n/', '<br />', $this->_xmlEntities($text));
+        } else {
+            $html = $this->_xmlEntities($text);
+        }
+
         // check LINEBREAK directive in the page metadata
         if (isset($INFO['meta']['plugin_linebreak2'])) {
             $linebreak = $INFO['meta']['plugin_linebreak2'];
@@ -41,16 +48,16 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         switch ($linebreak) {
             case 'br':
                 // xbr plugin: XHTML output with preserved linebreaks
-                $this->doc .= str_replace(DOKU_LF,'<br />'.DOKU_LF,$this->_xmlEntities($text));
+                $this->doc .= str_replace(DOKU_LF, '<br />', $html);
                 return;
             case '':
                 // scriptio continua: concatenate next line without word delimiting space
-                $this->doc .= str_replace(DOKU_LF,'',$this->_xmlEntities($text));
+                $this->doc .= str_replace(DOKU_LF, '', $html);
                 return;
             case 'LF':
             default:
                 // leave line break chars as is (identical with the standard xhml renderer)
-                $this->doc .= $this->_xmlEntities($text);
+                $this->doc .= $html;
                 return;
         }
     }
