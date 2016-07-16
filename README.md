@@ -11,6 +11,9 @@ The default behavior can be configured through the DokuWiki configuration manage
 
 Note: You need first to change the [renderer_xhtml](https://www.dokuwiki.org/config:renderer_xhtml) parameter in advanced settings.
 
+### Markdown newline trick emulation (optional)
+
+The LineBreak2 renderer also provides a **force newline** syntax that “two or more spaces at the end of line” will be rendered as `<br>` in wiki page. You may use this newline trick instead of “two backslashes at the end of line” that is a DokuWiki standard feature. The newline trick can be enabled in the config manager. 
 
 ----
 
