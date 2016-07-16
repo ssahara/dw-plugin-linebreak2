@@ -3,5 +3,5 @@ author   Satoshi Sahara
 email    sahara.satoshi@gmail.com
 date     2016-07-16
 name     LineBreak2 plugin
-desc     Alternative xhtml renderer that works with LINEBREAK directive syntax influences whether linebreaks in the wiki text should be preserved or removed. The LineBreak2 renderer optinally emulates Markdown linebreak trick.
+desc     Alternative xhtml renderer that works with LINEBREAK directive syntax influences whether linebreaks in the wiki text should be preserved or removed. The LineBreak2 renderer optinally emulates Markdown linebreak trick of more than two spaces at the end of line.
 url      https://github.com/ssahara/dw-plugin-linebreak2
