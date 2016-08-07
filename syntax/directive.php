@@ -3,7 +3,6 @@
  * DokuWiki Plugin LineBreak2
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Danny Lin <danny.0838@gmail.com>
  * @author     Satoshi Sahara <sahara.satoshi@gmail.com>
  *
  * usage:
@@ -14,6 +13,7 @@
 
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
+if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
 
