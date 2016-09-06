@@ -17,15 +17,15 @@ if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
 
     function canRender($format) {
-      return ($format=='xhtml');
+        return ($format=='xhtml');
     }
 
     function reset() {
-       $this->doc = '';
-       $this->footnotes = array();
-       $this->lastsec = 0;
-       $this->store = '';
-       $this->_counter = array();
+        $this->doc = '';
+        $this->footnotes = array();
+        $this->lastsec = 0;
+        $this->store = '';
+        $this->_counter = array();
     }
 
     function cdata($text) {

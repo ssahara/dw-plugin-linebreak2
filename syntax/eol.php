@@ -33,7 +33,7 @@ class syntax_plugin_linebreak2_eol extends DokuWiki_Syntax_Plugin {
     /**
      * Handle the match
      */
-    function handle($match, $state, $pos, Doku_Handler $handler){
+    function handle($match, $state, $pos, Doku_Handler $handler) {
         return true;
     }
 
