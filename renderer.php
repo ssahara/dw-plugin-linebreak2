@@ -2,8 +2,9 @@
 /**
  * DokuWiki Plugin LineBreak2; render component
  *
- * @author Chris Smith <chris@jalakai.co.uk>
- * @author Satoshi Sahara <sahara.satoshi@gmail.com>
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author     Chris Smith <chris@jalakai.co.uk>
+ * @author     Satoshi Sahara <sahara.satoshi@gmail.com>
  */
 
 if(!defined('DOKU_INC')) die();
