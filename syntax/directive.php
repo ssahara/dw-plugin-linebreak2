@@ -1,10 +1,11 @@
 <?php
 /**
- * DokuWiki Plugin LineBreak2
+ * DokuWiki Plugin LineBreak2; derective syntax component
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     Satoshi Sahara <sahara.satoshi@gmail.com>
  *
+ * Control how line break chars in wiki text should be treated in cdata() call
  * usage:
  *  ~~LINEBREAK:LF~~  : render DOKU_LF (\n) as is (identical with the standard renderer)
  *  ~~LINEBREAK:br~~  : render <br> tag
