@@ -36,7 +36,7 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
      * Handle the match
      */
     function handle($match, $state, $pos, Doku_Handler $handler) {
-        $data = substr($match, 12, -2);
+        $data = $match;
         return $data;
     }
 
@@ -44,8 +44,16 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
      * Create output
      */
     function render($format, Doku_Renderer $renderer, $data) {
+        if ($format == 'xhtml') {
+            // check renderer_xhtml config parameter is set as 'linebreak2'
+            global $conf, $ID;
+            if ($conf['renderer_xhtml'] !== 'linebreak2') {
+                msg(hsc($data).' | set <b>render_xhtml</b> config to LineBreak2 plugin', 2);
+                error_log('LineBreak2 plugin: non-effective LINEBREAK macro found in '.$ID);
+            }
+        }
         if ($format == 'metadata') {
-            $renderer->meta['plugin_linebreak2'] = $data;
+            $renderer->meta['plugin_linebreak2'] = substr($data, 12, -2);
         }
         return true;
     }
