@@ -18,7 +18,7 @@ if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
 
     function canRender($format) {
-        return ($format=='xhtml');
+        return ($format == 'xhtml');
     }
 
     function reset() {

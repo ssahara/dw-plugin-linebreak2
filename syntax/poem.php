@@ -13,25 +13,32 @@ if(!defined('DOKU_INC')) die();
 class syntax_plugin_linebreak2_poem extends DokuWiki_Syntax_Plugin {
 
     protected $mode;
+    protected $pattern = array();
 
     function __construct() {
         $this->mode = substr(get_class($this), 7); // drop 'syntax_' from class name
+
+        // syntax pattern
+        $this->pattern[1] = '<poem>\n?';
+        $this->pattern[4] = '</poem>';
     }
 
     function getType() { return 'container'; }
     function getPType() { return 'stack'; }
-    function getAllowedTypes() { return array('formatting', 'substition', 'disabled', 'poem'); }
     function getSort() { return 20; }
+    function getAllowedTypes() {
+        return array('formatting', 'substition', 'disabled', 'poem');
+    }
 
     /**
      * Connect pattern to lexer
      */
     function connectTo($mode) {
-        $this->Lexer->addEntryPattern('<poem>\n?', $mode, $this->mode);
+        $this->Lexer->addEntryPattern($this->pattern[1], $mode, $this->mode);
     }
 
     function postConnect() {
-        $this->Lexer->addExitPattern('</poem>', $this->mode);
+        $this->Lexer->addExitPattern($this->pattern[4], $this->mode);
     }
 
     /**
