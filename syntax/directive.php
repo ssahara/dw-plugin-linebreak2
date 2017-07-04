@@ -18,7 +18,7 @@ if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
 
-    protected $mode
+    protected $mode;
     protected $pattern = array();
 
     function __construct() {
