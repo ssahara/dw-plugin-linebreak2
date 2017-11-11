@@ -4,5 +4,6 @@
  * @author     Satoshi Sahara <sahara.satoshi@gmail.com>
  */
 
+$meta['cjk']       = 0;
 $conf['markdown']  = 0;
 $conf['linebreak'] = 'LF'; // = DOKU_LF

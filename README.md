@@ -15,5 +15,9 @@ Note: You need first to change the [renderer_xhtml](https://www.dokuwiki.org/con
 
 The LineBreak2 renderer also provides a **force newline** syntax that “two or more spaces at the end of line” will be rendered as `<br>` in wiki page. You may use this newline trick instead of “two backslashes at the end of line” that is a DokuWiki standard feature. The newline trick can be enabled in the config manager. 
 
+### CJK typesetting (optional)
+
+When you write multilined paragraph, line feed chars (remaining at end of each lines) are displayed as white spaces. This behavior may not be appropriate especially for CJK language - Chinese, Japanese and Korean documents.  The LineBreak2 renderer can remove such unnecessary spaces between any full-width characters.
+
 ----
 

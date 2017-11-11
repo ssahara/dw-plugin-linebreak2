@@ -32,12 +32,20 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
     function cdata($text) {
         global $INFO;
 
+        $html = $this->_xmlEntities($text);
+
+        // CJK typesetting
+        // remove unnecessary spaces between any full-width characters
+        // caused by line feed (LF) in a paragraph of CJK language
+        // using negated one-byte character class [^\x20-\x7E\xA1-\xFF]
+        if ($this->getConf('cjk')) {
+            $html = preg_replace('/(?<=[^\x20-\x7E\xA1-\xFF])\n(?=[^\x20-\x7E\xA1-\xFF])/', '', $html);
+        }
+
         // Markdown linebreak syntax
         // force newline if found more than two spaces at the end of line
         if ($this->getConf('markdown')) {
-            $html = preg_replace('/ {2,}\n/', '<br />', $this->_xmlEntities($text));
-        } else {
-            $html = $this->_xmlEntities($text);
+            $html = preg_replace('/ {2,}\n/', '<br />', $html);
         }
 
         // check LINEBREAK directive in the page metadata
