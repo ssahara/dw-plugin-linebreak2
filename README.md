@@ -1,8 +1,11 @@
 # LineBreak2 plugin for DokuWiki
 
 A xhtml renderer alternative which provides **LINEBREAK** directive syntax. 
-The directive defines how line break (new line) chars should be rendered in the wikipage:
+The directive defines how linebreak (new line) chars should be rendered in the wikipage:
 
+    ~~LINEBREAK~~     : same as ~~LINEBREAK:br~~
+    ~~NOLINEBREAK~~   : same as ~~LINEBREAK:LF~~
+   
     ~~LINEBREAK:LF~~  : render DOKU_LF (\n) as is (identical with the standard DokuWiki XHTML renderer)
     ~~LINEBREAK:br~~  : render <br> tag. preserve line breaks in the wiki text ("Poem" mode)
     ~~LINEBREAK:~~    : render nothing, remove line break chars ("Scriptio continua" mode)
