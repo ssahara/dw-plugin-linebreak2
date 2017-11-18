@@ -59,6 +59,7 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
      * Create output
      */
     function render($format, Doku_Renderer $renderer, $data) {
+        global $conf;
 
         $linebreak =& $data;
 
@@ -70,9 +71,9 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
                 $note.= ' (mode = '.$linebreak.')';
                 msg($note, 2);
             }
-        }
-        if ($format == 'metadata') {
-            $renderer->meta['plugin_linebreak2'] = $linebreak;
+
+            // set linebreak mode in volatile global variable
+            $conf['plugin']['linebreak2']['_linebreak'] = $linebreak;
         }
         return true;
     }
