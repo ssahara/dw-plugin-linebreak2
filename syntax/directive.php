@@ -7,6 +7,9 @@
  *
  * Control how line break chars in wiki text should be treated in cdata() call
  * usage:
+ *  ~~LINEBREAK~~     : same as ~~LINEBREAK:br~~
+ *  ~~NOLINEBREAK~~   : same as ~~LINEBREAK:LF~~
+ *
  *  ~~LINEBREAK:LF~~  : render DOKU_LF (\n) as is (identical with the standard renderer)
  *  ~~LINEBREAK:br~~  : render <br> tag
  *  ~~LINEBREAK:~~    : render nothing, remove line break chars
@@ -25,7 +28,7 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
         $this->mode = substr(get_class($this), 7); // drop 'syntax_' from class name
 
         // syntax pattern
-        $this->pattern[5] = '~~LINEBREAK:[^\r\n]*?~~';
+        $this->pattern[5] = '~~(?:NO)?LINEBREAK(?::[^\r\n]*?)?~~';
     }
 
     function getType(){ return 'substition'; }
@@ -42,24 +45,34 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
      * Handle the match
      */
     function handle($match, $state, $pos, Doku_Handler $handler) {
-        $data = $match;
-        return $data;
+        list ($macro, $param) = explode(':', substr($match, 2, -2));
+
+        if ($macro == 'LINEBREAK') {
+            $linebreak = $param ?? 'br';
+        } else {
+            $linebreak = 'LF';
+        }
+        return $data = $linebreak;
     }
 
     /**
      * Create output
      */
     function render($format, Doku_Renderer $renderer, $data) {
+
+        $linebreak =& $data;
+
         if ($format == 'xhtml') {
             // check renderer_xhtml config parameter is set as 'linebreak2'
             global $conf, $ID;
             if ($conf['renderer_xhtml'] !== 'linebreak2') {
-                msg(hsc($data).' | set <b>render_xhtml</b> config to LineBreak2 plugin', 2);
-                error_log('LineBreak2 plugin: non-effective LINEBREAK macro found in '.$ID);
+                $note = 'set <b>render_xhtml</b> config parameter to "LineBreak2"';
+                $note.= ' (mode = '.$linebreak.')';
+                msg($note, 2);
             }
         }
         if ($format == 'metadata') {
-            $renderer->meta['plugin_linebreak2'] = substr($data, 12, -2);
+            $renderer->meta['plugin_linebreak2'] = $linebreak;
         }
         return true;
     }
