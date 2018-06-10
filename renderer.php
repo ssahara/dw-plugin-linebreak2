@@ -49,7 +49,7 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         }
 
         // get linebreak mode
-        $linebreak = $this->getConf('_linebreak') ?? $this->getConf('linebreak');
+        $linebreak = $conf['plugin']['linebreak2']['_linebreak'] ?? $this->getConf('linebreak');
 
         switch ($linebreak) {
             case 'br':
