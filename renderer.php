@@ -54,7 +54,9 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         switch ($linebreak) {
             case 'br':
                 // xbr plugin: XHTML output with preserved linebreaks
-                $this->doc .= str_replace(DOKU_LF, '<br />', $html);
+                if (!empty(trim($html)) {
+                    $this->doc .= str_replace(DOKU_LF, '<br />', $html);
+                }
                 return;
             case '':
                 // scriptio continua: concatenate next line without word delimiting space
