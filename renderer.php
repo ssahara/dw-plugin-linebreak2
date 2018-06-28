@@ -30,7 +30,6 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
     }
 
     function cdata($text) {
-        global $conf;
 
         $html = $this->_xmlEntities($text);
 
@@ -49,7 +48,7 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         }
 
         // get linebreak mode
-        $linebreak = $conf['plugin']['linebreak2']['_linebreak'] ?? $this->getConf('linebreak');
+        $linebreak = $this->getConf('_linebreak', null) ?? $this->getConf('linebreak');
 
         switch ($linebreak) {
             case 'br':
