@@ -34,11 +34,11 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         $html = $this->_xmlEntities($text);
 
         // CJK typesetting
-        // remove unnecessary spaces between any full-width characters
-        // caused by line feed (LF) in a paragraph of CJK language
-        // using negated one-byte character class [^\x20-\x7E\xA1-\xFF]
+        // remove unnecessary spaces between any CJK characters
+        // caused by line feed (LF) in a multi-line paragraph
         if ($this->getConf('cjk')) {
-            $html = preg_replace('/(?<=[^\x20-\x7E\xA1-\xFF])\n(?=[^\x20-\x7E\xA1-\xFF])/', '', $html);
+            $cjk = '\p{Han}\p{Hiragana}\p{Katakana}\p{Hangul}';
+            $html = preg_replace('/(?<=['.$cjk.'])\n(?=['.$cjk.'])/u', '', $html);
         }
 
         // Markdown linebreak syntax
