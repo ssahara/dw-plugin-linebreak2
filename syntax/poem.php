@@ -16,7 +16,8 @@ class syntax_plugin_linebreak2_poem extends DokuWiki_Syntax_Plugin {
     protected $pattern = array();
 
     function __construct() {
-        $this->mode = substr(get_class($this), 7); // drop 'syntax_' from class name
+        // syntax mode, drop 'syntax_' from class name
+        $this->mode = substr(get_class($this), 7);
 
         // syntax pattern
         $this->pattern[1] = '<poem>\n?';
