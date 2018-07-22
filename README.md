@@ -3,11 +3,11 @@
 A xhtml renderer alternative which provides **LINEBREAK** directive syntax. 
 The directive defines how linebreak (new line) chars should be rendered in the wikipage:
 
-    ~~LINEBREAK~~     : same as ~~LINEBREAK:br~~
+    ~~LINEBREAK~~     : same as ~~LINEBREAK:BR~~
     ~~NOLINEBREAK~~   : same as ~~LINEBREAK:LF~~
    
     ~~LINEBREAK:LF~~  : render DOKU_LF (\n) as is (identical with the standard DokuWiki XHTML renderer)
-    ~~LINEBREAK:br~~  : render <br> tag. preserve line breaks in the wiki text ("Poem" mode)
+    ~~LINEBREAK:BR~~  : render <br> tag. preserve line breaks in the wiki text ("Poem" mode)
     ~~LINEBREAK:~~    : render nothing, remove line break chars ("Scriptio continua" mode)
 
 The default behavior can be configured through the DokuWiki configuration manager.

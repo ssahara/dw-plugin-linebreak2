@@ -1,7 +1,7 @@
 base     linebreak2
 author   Satoshi Sahara
 email    sahara.satoshi@gmail.com
-date     2018-06-28
+date     2018-07-22
 name     LineBreak2 plugin
 desc     Alternative xhtml renderer that works with LINEBREAK directive. The LineBreak2 renderer also provides ability to remove unwanted spaces between CJK full-width characters, and supports Markdown linebreak trick of more than two spaces at the end of line.
 url      https://github.com/ssahara/dw-plugin-linebreak2
