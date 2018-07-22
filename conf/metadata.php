@@ -6,4 +6,4 @@
 
 $meta['cjk']       = array('onoff');
 $meta['markdown']  = array('onoff');
-$meta['linebreak'] = array('multichoice','_choices' => array('LF','br',''));
+$meta['linebreak'] = array('multichoice','_choices' => array('LF','BR',''));

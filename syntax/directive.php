@@ -29,7 +29,7 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
         $this->mode = substr(get_class($this), 7);
 
         // syntax pattern
-        $this->pattern[5] = '~~(?:NO)?LINEBREAK(?::[^\r\n~]*)?~~';
+        $this->pattern[5] = '~~(?:NO)?LINEBREAK(?::(?:br|BR|LF)?)?~~';
     }
 
     function getType(){ return 'substition'; }
@@ -49,7 +49,7 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
         list ($macro, $param) = explode(':', substr($match, 2, -2));
 
         if ($macro == 'LINEBREAK') {
-            $linebreak = $param ?? 'br';
+            $linebreak = isset($param) ? strtoupper($param) : 'BR';
         } else {
             $linebreak = 'LF';
         }
