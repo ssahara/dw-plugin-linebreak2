@@ -13,17 +13,6 @@ if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 class syntax_plugin_linebreak2_eol extends DokuWiki_Syntax_Plugin {
 
-    protected $mode;
-    protected $pattern = array();
-
-    function __construct() {
-        // syntax mode, drop 'syntax_' from class name
-        $this->mode = substr(get_class($this), 7);
-
-        // syntax pattern
-        $this->pattern[5] = '(?:^[ \t]*)?\n';
-    }
-
     function getType() { return 'poem'; }
     function getPType() { return 'normal'; }
     function getSort() { return 369; }
@@ -31,6 +20,17 @@ class syntax_plugin_linebreak2_eol extends DokuWiki_Syntax_Plugin {
     /**
      * Connect pattern to lexer
      */
+    protected $mode;
+    protected $pattern = [];
+
+    function preConnect() {
+        // syntax mode, drop 'syntax_' from class name
+        $this->mode = substr(get_class($this), 7);
+
+        // syntax pattern
+        $this->pattern[5] = '(?:^[ \t]*)?\n';
+    }
+
     function connectTo($mode) {
         $this->Lexer->addSpecialPattern($this->pattern[5], $mode, $this->mode);
     }
