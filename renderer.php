@@ -86,6 +86,12 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
 
         if(blank($text)) return; //skip empty headlines
 
+        // EXPERIMENTAL formatting header
+        // output text string through the parser, allows dokuwiki markup to be used
+        // very ineffecient for small pieces of data - try not to use
+        $xhtml = substr($this->render_text($text), 4, -5); // strip p tags
+        $text = trim(htmlspecialchars_decode(strip_tags($xhtml), ENT_QUOTES));
+
         $hid = $this->_headerToLink($text, true); // Creates a linkid from a headline
 
         //only add items within configured levels
@@ -119,7 +125,7 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
             $this->doc .= ' class="'.$this->startSectionEdit($pos, $data).'"';
         }
         $this->doc .= ' id="'.$hid.'">';
-        $this->doc .= $this->_xmlEntities($text);
+        $this->doc .= $xhtml;
         $this->doc .= '</h'.$level.'>'.DOKU_LF;
     }
 
