@@ -94,7 +94,7 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         // adjust $node to reflect hierarchy of levels
         $this->node[$level - 1]++;
         if ($level < $this->lastlevel) {
-            for($i = 0; $i < $this->lastlevel - $level; $i++) {
+            for($i = 0, $m = $this->lastlevel - $level; $i < $m; $i++) {
                 $this->node[$this->lastlevel - $i - 1] = 0;
             }
         }
