@@ -89,8 +89,10 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         // EXPERIMENTAL formatting header
         // output text string through the parser, allows dokuwiki markup to be used
         // very ineffecient for small pieces of data - try not to use
-        $xhtml = substr($this->render_text($text), 4, -5); // strip p tags
-        $text = trim(htmlspecialchars_decode(strip_tags($xhtml), ENT_QUOTES));
+        if ($this->getConf('header_formatting')) {
+            $xhtml = substr($this->render_text($text), 4, -5); // strip p tags
+            $text = trim(htmlspecialchars_decode(strip_tags($xhtml), ENT_QUOTES));
+        }
 
         $hid = $this->_headerToLink($text, true); // Creates a linkid from a headline
 

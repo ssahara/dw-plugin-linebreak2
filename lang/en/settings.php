@@ -12,4 +12,5 @@ $lang['linebreak'] = 'How to treat line break in cdata() call';
 $lang['linebreak_o_LF'] ='output as is (default)';
 $lang['linebreak_o_BR'] ='replace to <br> tag';
 $lang['linebreak_o_']   ='remove line break chars';
+$lang['header_formatting'] = 'EXPERIMENTAL: Allow formatting sytnax in header text'; //experimetal
 
