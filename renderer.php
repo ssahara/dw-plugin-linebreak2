@@ -92,6 +92,7 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         if ($this->getConf('header_formatting')) {
             $html = substr($this->render_text($text), 4, -5); // strip p tags
             $text = trim(htmlspecialchars_decode(strip_tags($html), ENT_QUOTES));
+            $text = str_replace(DOKU_LF, '', $text); // remove linebreaks
         } else {
             $html = $this->_xmlEntities($text);
         }
