@@ -82,31 +82,38 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
      * @param int    $pos   byte position in the original source
      */
     function header($text, $level, $pos) {
-        global $ID, $conf;
-        static $toc;
+
+        if (!$this->getConf('header_formatting')) {
+            parent::header($text, $level, $pos);
+            return;
+        }
 
         if(blank($text)) return; //skip empty headlines
 
-        // EXPERIMENTAL formatting header
-        // output text string through the parser, allows dokuwiki markup to be used
-        // very ineffecient for small pieces of data - try not to use
-        if ($this->getConf('header_formatting')) {
-            if (!isset($toc)) {
-                $toc = p_get_metadata($ID, 'description tableofcontents') ?? [];
-            }
-            if (($k = array_search($text, array_column($toc, '_text'))) !== false) {
-                $html = $toc[$k]['_html'];
-                $text = $toc[$k]['title'];
-            } else {
-                $html = substr($this->render_text($text), 5, -6); // strip p tags
-                $text = htmlspecialchars_decode(strip_tags($html), ENT_QUOTES);
-                $text = str_replace(DOKU_LF, '', trim($text)); // remove linebreaks
-            }
+        /*
+         * EXPERIMENTAL: Render a formatted heading
+         */
+        global ID, $conf;
+        static $toc;
+
+        if (!isset($toc)) {
+            // use toc metadata that has modified in PARSER_METADATA_RENDER event
+            $toc = p_get_metadata($ID, 'description tableofcontents') ?? [];
+        }
+        if (($k = array_search($text, array_column($toc, '_text'))) !== false) {
+            $html = $toc[$k]['_html'];
+            $text = $toc[$k]['title'];
         } else {
-            $html = $this->_xmlEntities($text);
+            // NOTE: common plugin function render_text()
+            // output text string through the parser, allows DokuWiki markup to be used
+            // very ineffecient for small pieces of data - try not to use
+            $html = substr($this->render_text($text), 5, -6); // strip p tags and \n
+            $text = htmlspecialchars_decode(strip_tags($html), ENT_QUOTES);
+            $text = str_replace(DOKU_LF, '', trim($text)); // remove any linebreak
         }
 
-        $hid = $this->_headerToLink($text, true); // Creates a linkid from a headline
+        // creates a linkid from a headline
+        $hid = $this->_headerToLink($text, true); // ensure unique hid
 
         //only add items within configured levels
         $this->toc_additem($hid, $text, $level);

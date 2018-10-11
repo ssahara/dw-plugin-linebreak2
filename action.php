@@ -35,6 +35,9 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
      * PARSER_METADATA_RENDER
      *
      * remove wiki markup from metadata stored in description_tableofcontents
+     * NOTE: common plugin function render_text()
+     * output text string through the parser, allows DokuWiki markup to be used
+     * very ineffecient for small pieces of data - try not to use
      */
     function _modifyTableOfContents(Doku_Event $event) {
         if (!$this->getConf('header_formatting')) return;
