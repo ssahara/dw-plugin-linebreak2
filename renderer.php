@@ -82,7 +82,8 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
      * @param int    $pos   byte position in the original source
      */
     function header($text, $level, $pos) {
-        global $conf;
+        global $ID, $conf;
+        static $toc;
 
         if(blank($text)) return; //skip empty headlines
 
@@ -90,9 +91,17 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         // output text string through the parser, allows dokuwiki markup to be used
         // very ineffecient for small pieces of data - try not to use
         if ($this->getConf('header_formatting')) {
-            $html = substr($this->render_text($text), 4, -5); // strip p tags
-            $text = trim(htmlspecialchars_decode(strip_tags($html), ENT_QUOTES));
-            $text = str_replace(DOKU_LF, '', $text); // remove linebreaks
+            if (!isset($toc)) {
+                $toc = p_get_metadata($ID, 'description tableofcontents') ?? [];
+            }
+            if (($k = array_search($text, array_column($toc, '_text'))) !== false) {
+                $html = $toc[$k]['_html'];
+                $text = $toc[$k]['title'];
+            } else {
+                $html = substr($this->render_text($text), 5, -6); // strip p tags
+                $text = htmlspecialchars_decode(strip_tags($html), ENT_QUOTES);
+                $text = str_replace(DOKU_LF, '', trim($text)); // remove linebreaks
+            }
         } else {
             $html = $this->_xmlEntities($text);
         }

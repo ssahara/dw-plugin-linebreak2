@@ -45,11 +45,10 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
         $headers = [];
         foreach ($toc as &$item) {
             $item['_text'] = $item['title'];
-            $html = substr($this->render_text($item['title']), 4, -5); // drop p tags
-            $text = trim(htmlspecialchars_decode(strip_tags($html), ENT_QUOTES));
-            $text = str_replace(DOKU_LF, '', $text); // remove any linebreak
-            $item['title'] = $text;
-            $item['hid'] = sectionID($text, $headers); // ensure unique hid
+            $item['_html'] = substr($this->render_text($item['_text']), 5, -6); // drop p tags
+            $text = htmlspecialchars_decode(strip_tags($item['_html']), ENT_QUOTES);
+            $item['title'] = str_replace(DOKU_LF, '', trim($text)); // remove any linebreak
+            $item['hid'] = sectionID($item['title'], $headers); // ensure unique hid
         }
         unset($item);
     }
