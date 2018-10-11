@@ -40,10 +40,16 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
         if (!$this->getConf('header_formatting')) return;
 
         $toc =& $event->data['current']['description']['tableofcontents'];
+        if (!isset($toc)) return;
+
+        $headers = [];
         foreach ($toc as &$item) {
+            $item['_text'] = $item['title'];
             $html = substr($this->render_text($item['title']), 4, -5); // drop p tags
             $text = trim(htmlspecialchars_decode(strip_tags($html), ENT_QUOTES));
-            $item['title'] = str_replace(DOKU_LF, '', $text); // remove linebreaks
+            $text = str_replace(DOKU_LF, '', $text); // remove any linebreak
+            $item['title'] = $text;
+            $item['hid'] = sectionID($text, $headers); // ensure unique hid
         }
         unset($item);
     }
