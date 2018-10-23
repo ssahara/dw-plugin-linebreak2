@@ -42,7 +42,7 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
             $renderer = $this->loadHelper($this->getPluginName()) ?? false;
         }
 
-        if (!$renderer) {
+        if ($renderer) {
             $this->doc .= $renderer->cdata($text);
         } else {
             parent::cdata($text);
