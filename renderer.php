@@ -36,42 +36,17 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
      */
     function cdata($text) {
 
-        $html = $this->_xmlEntities($text);
+        static $renderer;
 
-        // get linebreak mode
-        $linebreak = $this->getConf('_linebreak', null) ?? $this->getConf('linebreak');
-
-        // BR mode: XHTML output with preserved linebreaks
-        if ($linebreak == 'br' || $linebreak == 'BR') {
-            $this->doc .= str_replace(DOKU_LF, '<br />', $html);
-            return;
+        if (!isset($renderer)) {
+            $renderer = $this->loadHelper($this->getPluginName()) ?? false;
         }
 
-        // Normal mode or scriptio continua
-
-        // CJK typesetting
-        // remove unnecessary spaces between any CJK characters
-        // caused by line feed (LF) in a multi-line paragraph
-        if ($this->getConf('cjk')) {
-            $cjk = '\p{Han}\p{Hiragana}\p{Katakana}\p{Hangul}';
-            $html = preg_replace('/(?<=['.$cjk.'])\n(?=['.$cjk.'])/u', '', $html);
+        if (!$renderer) {
+            $this->doc .= $renderer->cdata($text);
+        } else {
+            parent::cdata($text);
         }
-
-        // Markdown linebreak syntax
-        // force newline if found more than two spaces at the end of line
-        if ($this->getConf('markdown')) {
-            $html = preg_replace('/ {2,}\n/', '<br />', $html);
-        }
-
-        // scriptio continua: concatenate next line without word delimiting space
-        if ($linebreak == '') {
-            $this->doc .= str_replace(DOKU_LF, '', $html);
-            return;
-        }
-
-        // Normal mode: identical with the standard xhml renderer
-        // leave line break chars as is
-        $this->doc .= $html;
     }
 
     /**
