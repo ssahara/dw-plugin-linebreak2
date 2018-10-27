@@ -7,4 +7,3 @@
 $meta['cjk']       = array('onoff');
 $meta['markdown']  = array('onoff');
 $meta['linebreak'] = array('multichoice','_choices' => array('LF','BR',''));
-$meta['header_formatting'] = array('onoff'); //experimetal

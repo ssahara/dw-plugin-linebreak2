@@ -8,6 +8,7 @@
  */
 
 if (!defined('DOKU_INC')) die();
+if (!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 class helper_plugin_linebreak2 extends DokuWiki_Plugin {
 

@@ -7,4 +7,3 @@
 $conf['cjk']       = 0;
 $conf['markdown']  = 0;
 $conf['linebreak'] = 'LF'; // = DOKU_LF
-$conf['header_formatting'] = 0; //experimetal
