@@ -42,7 +42,7 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
     function _modifyTableOfContents(Doku_Event $event) {
         if (!$this->getConf('header_formatting')) return;
 
-        $toc =& $event->data['current']['description']['tableofcontents'];
+        $toc =& $event->data['current']['description']['tableofcontents'] ?? [];
         if (!isset($toc)) return;
 
         $headers = [];
@@ -54,5 +54,13 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
             $item['hid'] = sectionID($item['title'], $headers); // ensure unique hid
         }
         unset($item);
+
+        // set pagename
+        if (isset($event->data['persistent']['title'])) {
+            $event->data['current']['title'] = $event->data['persistent']['title'];
+        } elseif ($count($toc) && $toc[0]['title']) {
+            $event->data['current']['title'] = $toc[0]['title'];
+        }
+
     }
 }
