@@ -18,7 +18,13 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
             'PARSER_CACHE_USE', 'BEFORE', $this, '_clearVolatileConf'
         );
         $controller->register_hook(
-            'PARSER_METADATA_RENDER', 'AFTER', $this, '_modifyTableOfContents'
+            'PARSER_METADATA_RENDER', 'BEFORE', $this, '_modifyTableOfContents', ['before']
+        );
+        $controller->register_hook(
+            'PARSER_METADATA_RENDER', 'AFTER',  $this, '_modifyTableOfContents', []
+        );
+        $controller->register_hook(
+            'TPL_TOC_RENDER', 'BEFORE', $this, 'tpl_toc'
         );
     }
 
@@ -39,8 +45,25 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
      * output text string through the parser, allows DokuWiki markup to be used
      * very ineffecient for small pieces of data - try not to use
      */
-    function _modifyTableOfContents(Doku_Event $event) {
+    function _modifyTableOfContents(Doku_Event $event, array $param) {
+        global $ID, $conf;
+        static $tocminheads, $toptoclevel, $maxtoclevel;
+
+        isset($tocminheads) || $tocminheads = $conf['tocminheads'];
+        isset($toptoclevel) || $toptoclevel = $conf['toptoclevel'];
+        isset($maxtoclevel) || $maxtoclevel = $conf['maxtoclevel'];
+
         if (!$this->getConf('header_formatting')) return;
+
+        if ($param[0] == 'before') {
+            $conf['tocminheads'] = 1;
+            $conf['toptoclevel'] = 1;
+            return;
+        } else {
+            $conf['tocminheads'] = $tocminheads;
+            $conf['toptoclevel'] = $toptoclevel;
+            $conf['maxtoclevel'] = $maxtoclevel;
+        }
 
         $toc =& $event->data['current']['description']['tableofcontents'] ?? [];
         if (!isset($toc)) return;
@@ -62,5 +85,16 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
             $event->data['current']['title'] = $toc[0]['title'];
         }
 
+        foreach ($toc as $k => &$item) {
+            if (empty($item['title'])
+                || ($item['level'] < $conf['toptoclevel'])
+                || ($item['level'] > $conf['maxtoclevel'])
+            ) {
+                unset($toc[$k]);
+            }
+            $item['level'] = $item['level'] - $conf['toptoclevel'] +1;
+        }
+        unset($item);
     }
+
 }
