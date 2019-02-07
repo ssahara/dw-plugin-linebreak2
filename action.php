@@ -58,6 +58,7 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
         if ($param[0] == 'before') {
             $conf['tocminheads'] = 1;
             $conf['toptoclevel'] = 1;
+            $conf['maxtoclevel'] = 5;
             return;
         } else {
             $conf['tocminheads'] = $tocminheads;
