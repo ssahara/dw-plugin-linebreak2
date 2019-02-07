@@ -58,7 +58,7 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
         // set pagename
         if (isset($event->data['persistent']['title'])) {
             $event->data['current']['title'] = $event->data['persistent']['title'];
-        } elseif ($count($toc) && $toc[0]['title']) {
+        } elseif (count($toc) && $toc[0]['title']) {
             $event->data['current']['title'] = $toc[0]['title'];
         }
 

@@ -93,7 +93,7 @@ class renderer_plugin_linebreak2 extends Doku_Renderer_xhtml {
         /*
          * EXPERIMENTAL: Render a formatted heading
          */
-        global ID, $conf;
+        global $ID, $conf;
         static $toc;
 
         if (!isset($toc)) {
