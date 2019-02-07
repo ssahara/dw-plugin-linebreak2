@@ -85,7 +85,39 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
         } elseif (count($toc) && $toc[0]['title']) {
             $event->data['current']['title'] = $toc[0]['title'];
         }
+    }
 
+    /**
+     * TPL_TOC_RENDER event handler
+     *
+     * Adjust global TOC array according to a given config settings
+     * @see also inc/template.php function tpl_toc($return = false)
+     */
+    function tpl_toc(Doku_Event $event) {
+        global $INFO, $ACT, $conf;
+
+        if ($ACT == 'admin') {
+            $toc = [];
+            // try to load admin plugin TOC
+            if ($plugin = plugin_getRequestAdminPlugin()) {
+                $toc = $plugin->getTOC();
+                $TOC = $toc; // avoid later rebuild
+            }
+            // error_log(' '.$event->name.' admin toc='.var_export($toc,1));
+            $event->data = $toc;
+            return;
+        }
+
+        $notoc = !($INFO['meta']['internal']['toc']); // true if toc should not be displayed
+
+        if ($notoc || ($conf['tocminheads'] == 0)) {
+            $event->data = $toc = [];
+            return;
+        }
+
+        $toc = $INFO['meta']['description']['tableofcontents'] ?? [];
+
+        // modify toc items directly within loop by reference
         foreach ($toc as $k => &$item) {
             if (empty($item['title'])
                 || ($item['level'] < $conf['toptoclevel'])
@@ -96,6 +128,7 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
             $item['level'] = $item['level'] - $conf['toptoclevel'] +1;
         }
         unset($item);
+        $event->data = (count($toc) < $conf['tocminheads']) ? [] : $toc;
     }
 
 }
