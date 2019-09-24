@@ -6,14 +6,15 @@
  * @author     Satoshi Sahara <sahara.satoshi@gmail.com>
  */
 
-if(!defined('DOKU_INC')) die();
+if (!defined('DOKU_INC')) die();
 
-class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
-
+class action_plugin_linebreak2 extends DokuWiki_Action_Plugin
+{
     /**
      * Register event handlers
      */
-    function register(Doku_Event_Handler $controller) {
+    public function register(Doku_Event_Handler $controller)
+    {
         $controller->register_hook(
             'PARSER_CACHE_USE', 'BEFORE', $this, '_clearVolatileConf'
         );
@@ -23,7 +24,8 @@ class action_plugin_linebreak2 extends DokuWiki_Action_Plugin {
      * PARSER_CACHE_USE
      * clear volatile config settings that have set in syntax component
      */
-    function _clearVolatileConf(Doku_Event $event) {
+    public function _clearVolatileConf(Doku_Event $event)
+    {
         global $conf;
         unset($conf['plugin']['linebreak2']['_linebreak']);
     }

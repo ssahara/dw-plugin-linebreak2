@@ -16,21 +16,21 @@
  */
 
 // must be run within Dokuwiki
-if(!defined('DOKU_INC')) die();
-if(!defined('DOKU_LF')) define ('DOKU_LF',"\n");
+if (!defined('DOKU_INC')) die();
+if (!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
-class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
-
-    function getType(){ return 'substition'; }
-    function getSort(){ return 369; } // very low priority
+class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin
+{
+    public function getType(){ return 'substition'; }
+    public function getSort(){ return 369; } // very low priority
 
     /**
      * Connect pattern to lexer
      */
-    protected $mode;
-    protected $pattern = [];
+    protected $mode, $pattern;
 
-    function preConnect() {
+    public function preConnect()
+    {
         // syntax mode, drop 'syntax_' from class name
         $this->mode = substr(get_class($this), 7);
 
@@ -38,15 +38,17 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
         $this->pattern[5] = '~~(?:NO)?LINEBREAK(?::(?:br|BR|LF)?)?~~';
     }
 
-    function connectTo($mode) {
+    public function connectTo($mode)
+    {
         $this->Lexer->addSpecialPattern($this->pattern[5], $mode, $this->mode);
     }
 
     /**
      * Handle the match
      */
-    function handle($match, $state, $pos, Doku_Handler $handler) {
-        list ($macro, $param) = explode(':', substr($match, 2, -2));
+    public function handle($match, $state, $pos, Doku_Handler $handler)
+    {
+        list($macro, $param) = explode(':', substr($match, 2, -2));
 
         if ($macro == 'LINEBREAK') {
             $linebreak = isset($param) ? strtoupper($param) : 'BR';
@@ -59,7 +61,8 @@ class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin {
     /**
      * Create output
      */
-    function render($format, Doku_Renderer $renderer, $data) {
+    public function render($format, Doku_Renderer $renderer, $data)
+    {
         global $conf;
 
         $linebreak =& $data;

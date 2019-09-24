@@ -10,8 +10,8 @@
 if (!defined('DOKU_INC')) die();
 if (!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
-class helper_plugin_linebreak2 extends DokuWiki_Plugin {
-
+class helper_plugin_linebreak2 extends DokuWiki_Plugin
+{
     protected $doc = ''; // output buffer
 
     /**
@@ -28,8 +28,8 @@ class helper_plugin_linebreak2 extends DokuWiki_Plugin {
      *
      * @param string $text  the text to display
      */
-    function cdata($text) {
-
+    public function cdata($text)
+    {
         $html = hsc($text); // $this->_xmlEntities($text);
 
         // get linebreak mode

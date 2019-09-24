@@ -8,24 +8,24 @@
  */
 
 // must be run within Dokuwiki
-if(!defined('DOKU_INC')) die();
+if (!defined('DOKU_INC')) die();
 
-class syntax_plugin_linebreak2_poem extends DokuWiki_Syntax_Plugin {
-
-    function getType() { return 'container'; }
-    function getPType() { return 'stack'; }
-    function getSort() { return 20; }
-    function getAllowedTypes() {
+class syntax_plugin_linebreak2_poem extends DokuWiki_Syntax_Plugin
+{
+    public function getType() { return 'container'; }
+    public function getPType() { return 'stack'; }
+    public function getSort() { return 20; }
+    public function getAllowedTypes() {
         return array('formatting', 'substition', 'disabled', 'poem');
     }
 
     /**
      * Connect pattern to lexer
      */
-    protected $mode;
-    protected $pattern = [];
+    protected $mode, $pattern;
 
-    function preConnect() {
+    public function preConnect()
+    {
         // syntax mode, drop 'syntax_' from class name
         $this->mode = substr(get_class($this), 7);
 
@@ -34,20 +34,23 @@ class syntax_plugin_linebreak2_poem extends DokuWiki_Syntax_Plugin {
         $this->pattern[4] = '</poem>';
     }
 
-    function connectTo($mode) {
+    public function connectTo($mode)
+    {
         $this->Lexer->addEntryPattern($this->pattern[1], $mode, $this->mode);
     }
 
-    function postConnect() {
+    public function postConnect()
+    {
         $this->Lexer->addExitPattern($this->pattern[4], $this->mode);
     }
 
     /**
      * Handle the match
      */
-    function handle($match, $state, $pos, Doku_Handler $handler) {
+    public function handle($match, $state, $pos, Doku_Handler $handler)
+    {
         if ($state == DOKU_LEXER_UNMATCHED) {
-            $handler->_addCall('cdata', array($match), $pos);
+            $handler->base($match, $state, $pos);
         }
         return false;
     }
@@ -55,7 +58,8 @@ class syntax_plugin_linebreak2_poem extends DokuWiki_Syntax_Plugin {
     /**
      * Create output
      */
-    function render($format, Doku_Renderer $renderer, $data) {
+    public function render($format, Doku_Renderer $renderer, $data)
+    {
         return true;
     }
 }
