@@ -21,8 +21,15 @@ if (!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 class syntax_plugin_linebreak2_directive extends DokuWiki_Syntax_Plugin
 {
-    public function getType(){ return 'substition'; }
-    public function getSort(){ return 369; } // very low priority
+    public function getType()
+    {   // Syntax Type
+        return 'substition';
+    }
+
+    public function getSort()
+    {   // sort number used to determine priority of this mode
+        return 369; // very low priority
+    }
 
     /**
      * Connect pattern to lexer

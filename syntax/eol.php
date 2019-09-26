@@ -13,9 +13,20 @@ if (!defined('DOKU_LF')) define ('DOKU_LF',"\n");
 
 class syntax_plugin_linebreak2_eol extends DokuWiki_Syntax_Plugin
 {
-    public function getType() { return 'poem'; }
-    public function getPType() { return 'normal'; }
-    public function getSort() { return 369; }
+    public function getType()
+    {   // Syntax Type
+        return 'poem';
+    }
+
+    public function getPType()
+    {   // Paragraph Type
+        return 'normal';
+    }
+
+    public function getSort()
+    {   // sort number used to determine priority of this mode
+        return 369;
+    }
 
     /**
      * Connect pattern to lexer

@@ -12,11 +12,24 @@ if (!defined('DOKU_INC')) die();
 
 class syntax_plugin_linebreak2_poem extends DokuWiki_Syntax_Plugin
 {
-    public function getType() { return 'container'; }
-    public function getPType() { return 'stack'; }
-    public function getSort() { return 20; }
-    public function getAllowedTypes() {
+    public function getType()
+    {   // Syntax Type
+        return 'container';
+    }
+
+    public function getAllowedTypes()
+    {   // Allowed Mode Types
         return array('formatting', 'substition', 'disabled', 'poem');
+    }
+
+    public function getPType()
+    {   // Paragraph Type
+        return 'stack';
+    }
+
+    public function getSort()
+    {   // sort number used to determine priority of this mode
+        return 20;
     }
 
     /**
